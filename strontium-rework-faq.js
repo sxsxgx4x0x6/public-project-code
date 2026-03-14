@@ -13,175 +13,97 @@
     // ============================================
     // FAQ DATA
     // ============================================
-
     const FAQ_DATA = [
-      {
-        id: 'unplayable-audio',
-        section: 'Section 1 · Unplayable Audio',
-        items: [
-          {
-            q: 'Should I always evaluate based on audio rather than the transcript?',
-            a: 'The transcript can be used to evaluate lexical content when the audio is missing or unplayable. However, do not infer audio generation quality based on the transcript. The model should fail any audio generation criteria if the audio is not available or inaudible.'
-          },
-          {
-            q: 'What if audio is garbled, partial, or cuts off mid-sentence?',
-            a: 'Evaluate audio generation aspects based on what you can hear, and lexical content based on the transcript.'
-          },
-          {
-            q: 'What if only one response\'s audio is unavailable within a task?',
-            a: 'First, refresh the page. If this is happening across mulitple tasks, this is likely a device or browser issue. Do not work on this project. Otherwise, complete the task using the transcript. '
-          },
-          {
-            q: 'What if audio is missing for one or a few tasks?',
-            a: 'If audio is working in most tasks but missing in one or a few, proceed using the transcript for those tasks following the guidance above.'
-          },
-          {
-            q: 'What if audio is missing across all my tasks?',
-            a: 'This is likely a device or browser issue. Do not work on this project.'
-          },
-          {
-            q: 'How do I write criteria if a response is missing audio?',
-            a: 'Write the criteria as normal using the other sample responses to develop quality-differentiating criteria. Do not reference the missing audio in the criteria or write criteria about the issue.'
-          }
-        ]
-      },
-      {
-        id: 'audio-quality',
-        section: 'Section 2 · Audio Quality & Evaluation',
-        items: [
-          {
-            q: 'Is it important to specify exact timestamps when describing audio issues in the explanations?',
-            a: 'Exact timestamps are not required. Approximate indications like "mid-way through" or "near the beginning" are acceptable.'
-          },
-          {
-            q: 'Should I use headphones?',
-            a: 'You should listen using any device that allows you to hear clearly and at a comfortable volume.'
-          },
-          {
-            q: 'Why do some models produce a transcript of the user\'s prompt?',
-            a: 'This is to measure audio understanding. Sometimes, the criteria will require you to check their accuracy. Otherwise, you can comment on significant errors in the rationale.'
-          },
-          {
-            q: 'How carefully should I listen for audio issues?',
-            a: 'Don\'t strain to find issues a regular user wouldn\'t notice. Listen at a comfortable volume using any device with clear audio. If a criterion mentions an audio quality issue you don\'t readily notice during normal listening, rate it as No Issues.'
-          }
-        ]
-      },
-      {
-        id: 'scoring',
-        section: 'Section 3 · Scoring & Ratings',
-        items: [
-          {
-            q: 'If a criterion is rated "No Issues" by the LLM checker but I disagree, what should I do?',
-            a: 'Your judgment overrides the LLM. The LLM only has access to the transcript, not the audio, so it may miss issues. Apply your own evaluation.'
-          },
-          {
-            q: '(Multi-turn) If a model repeats false information from a previous turn, should it be penalized?',
-            a: 'Yes, consider this in the score. The model should ideally correct prior errors rather than confidently repeat them as fact.'
-          },
-          {
-            q: 'If the prompt asks for something factual but the rubric includes incorrect information, do we rate based on the rubric or the facts?',
-            a: 'Rate based on the rubric as written. If the rubric says the response should include X, rate accordingly even if X is factually incorrect.'
-          },
-          {
-            q: 'Should we fact-check model responses?',
-            a: 'Yes, fact-checking is appropriate. If a response includes inaccurate information (e.g., mismatched authors and titles, non-existent books), this can be scored as an issue against relevant criteria.'
-          },
-          {
-            q: 'If a criterion says "the response should include X" and the response only includes one instance when more were expected, is that a minor or major issue?',
-            a: 'Use your judgment based on how significantly the response fails the criterion\'s intent. If the prompt asked for 5 examples and only 1 was provided, that would typically be a major issue.'
-          },
-          {
-            q: 'What if correcting a criterion rating makes the overall comparison look misleading?',
-            a: 'There is some leeway in these cases. If correcting a rating to accurately reflect the criterion as written would make the overall comparison illogical — for example, removing the only visible penalization for a response that is genuinely worse — you may keep the preference choice that reflects the true relative quality of the responses, even if the corrected rubric scores don\'t fully support it.\n\nUse this leeway sparingly and explain your reasoning in the final explanation. Important: This is intended for rare, clear-cut cases where the rubric structure itself creates a misleading picture. Do not use this as a general override for preference choices you disagree with.'
-          },
-          {
-            q: 'Is there a knowledge cutoff to be aware of?',
-            a: 'Please evaluate the responses assuming they have up-to-date information.'
-          },
-          {
-            q: 'How should I evaluate conditional criteria?',
-            a: 'If the criterion is written such that it does not apply to a response, choose No Issues.'
-          },
-          {
-            q: 'What if a prompt is adversarial?',
-            a: 'This set should not contain adversarial prompts; if you encounter one, penalize a response for providing harmful information. If you find that the model refused to answer a safe prompt, you can penalize it for that, too.'
-          }
-        ]
-      },
-      {
-        id: 'problematic-prompts',
-        section: 'Section 4 · Impossible or Problematic Prompts',
-        items: [
-          {
-            q: 'What if the rubric has actively contradictory criteria?',
-            a: 'In no-edit projects, use your best judgment to infer the rubric author\'s intent and rate accordingly.'
-          }
-        ]
-      },
-      {
-        id: 'submission',
-        section: 'Section 5 · Submission Issues',
-        items: [
-          {
-            q: 'I get "Your responses to the following questions were missing or incorrect" even though everything is filled out. What should I do?',
-            a: 'Click on the error message itself — it should navigate you to the unanswered question. Also make sure you have clicked the "Calculate Model Scores" button. Check that the rubric is displayed as a list so you can see the first item. If you still cannot submit, contact support to report your time.'
-          },
-          {
-            q: 'My task expired before I could submit. What should I do?',
-            a: 'If the task shows up in "report time", you can just report the time. If it doesn\'t, then you should check and follow instructions from the platform FAQ.'
-          },
-          {
-            q: 'I ran out of time but completed the task. Should I submit it with a note?',
-            a: 'Yes — submit with a note in the optional comments field explaining the situation.'
-          },
-          {
-            q: 'Do I log time for a task I ultimately skipped?',
-            a: 'Yes. You can always log time for reading instructions and attempting a task, as that time applies regardless of whether the task was completed.'
-          }
-        ]
-      },
-      {
-        id: 'llm-tools',
-        section: 'Section 6 · LLM Analysis Tools',
-        items: [
-          {
-            q: 'The LLM flagged issues that don\'t match my criteria numbers. What\'s going on?',
-            a: 'The LLM may be referencing criteria that no longer exist or were renumbered. Cross-reference by context rather than number. If the flags don\'t apply, you can ignore them.'
-          },
-          {
-            q: 'The LLM analysis is focusing on one criterion and ignoring others. Is it working correctly?',
-            a: 'Not necessarily. The LLM checker\'s accuracy is not guaranteed. Use your judgment — your evaluation overrides the LLM\'s output.'
-          },
-          {
-            q: '(R&R) If a Rating Explanation has been left blank, should I complete it even if it wasn\'t flagged?',
-            a: 'Yes. If any feedback area is completely blank, review the task yourself and regenerate the LLM analysis to provide guidance.'
-          }
-        ]
-      },
-      {
-        id: 'misc',
-        section: 'Section 7 · Miscellaneous',
-        items: [
-          {
-            q: 'Is a prompt asking the model to replicate animal noises adversarial?',
-            a: 'No. Requesting animal noises is not asking the model to do something unsafe or harmful, so it is not considered adversarial.'
-          },
-          {
-            q: 'Can a model change its voice to portray a character or express emotions like anger?',
-            a: 'Yes, if the prompt explicitly requests this and it is not harmful or offensive. Do not penalize models unnecessarily for attempting voice/character changes when explicitly asked.'
-          },
-          {
-            q: 'For a prompt asking for a "rap," can we expect models to search the internet?',
-            a: 'Criteria should reference existing, verifiable examples (e.g., naming real artists or styles) rather than requiring internet search. Avoid criteria that rely on an endless open pool of possible correct answers with no fixed reference point.'
-          },
-          {
-            q: 'Is there audio in some tasks from TV shows or copyrighted content?',
-            a: 'If you notice potentially copyrighted audio content in a prompt, flag it in the Optional Comments for admin review. Do not mention it in the task rationale.'
-          }
-        ]
-      }
-    ];
+        {
+          id: 'faq-rubric-structure',
+          section: 'Section 1 · Rubric Structure & Scope',
+          items: [
+            {
+              q: 'The static rubric already covers audio quality, pronunciation, and naturalness. What if the prompt explicitly asks the model to do something acoustic, like "say this in a whisper" or "speak in an excited tone"? Should I skip writing a criterion for that?',
+              a: 'No — you should still write a criterion for that. The static rubric evaluates baseline audio qualities that apply to every response regardless of the prompt: Is the audio clean? Are words pronounced correctly? Does the voice sound natural? When a prompt explicitly asks the model to speak in a particular way, that\'s an instruction the model needs to follow, and it falls under Instruction Execution (Audio Generation). These are different things. A response could score well on the static Naturalness criterion (it sounds human-like and fluid) while completely ignoring the user\'s request to whisper.\n\nA good test: if the response passes one criterion, does it automatically pass the other? If a response sounds natural, does that mean it also whispered? No — so they\'re not redundant, and you should include both.\n\nUse this same test any time you\'re unsure whether a criterion you\'re writing overlaps with the static rubric. If passing the static criterion guarantees passing yours (or vice versa), they\'re redundant and you should remove yours. If a response could pass one and fail the other, they\'re measuring different things and both belong.'
+            },
+            {
+              q: 'How aggressively should I edit the editable rubric? It already has criteria when I receive it.',
+              a: 'The editable rubric you receive is a complete starting rubric — not a blank slate. Your job is to refine it, not rebuild it from scratch. That said, "refine" can mean real changes: removing criteria that overlap with the static rubric, removing criteria that are incidental or unlikely to differentiate future responses, adding criteria that are missing, and making light edits to improve clarity, atomicity, or self-containedness. Don\'t change things for the sake of changing them, but don\'t treat the existing criteria as untouchable either. If something needs to be fixed, fix it.'
+            },
+            {
+              q: 'Should I change the category annotation on an existing criterion if I think it\'s wrong?',
+              a: 'Only if you\'re confident it\'s wrong — meaning you saw the criterion, saw the assigned category, and immediately recognized the mismatch. These annotations have already been reviewed, so if you\'re on the fence or it\'s a close call between two plausible categories, leave it as-is.'
+            }
+          ]
+        },
+        {
+          id: 'faq-incidental-vs-generalizable',
+          section: 'Section 2 · Incidental vs. Generalizable Criteria',
+          items: [
+            {
+              q: 'Both sample responses include the same detail (e.g., both mention resting the steak). Does that make a criterion about it incidental?',
+              a: 'No. Whether a criterion is incidental has nothing to do with how many of the sample responses happen to include the detail. The test is whether the detail is something future responses would also need to get right. If resting a steak is genuinely good advice that any quality response to "how do I cook a steak?" should include, then it\'s a valid criterion — even if both samples already mention it. Incidental criteria are ones that latch onto arbitrary details unlikely to recur; a widely agreed-upon best practice is not arbitrary just because the current samples both got it right.'
+            },
+            {
+              q: 'One of the responses includes something objectively wrong. Should I write a criterion to catch that specific error?',
+              a: 'Generally, no — not as a negative criterion targeting that particular mistake. Criteria should be written to describe what a good response looks like, not to flag errors that happened to appear in one particular sample. If a response to "tell me about the Great Wall of China" says it\'s located in Japan, you wouldn\'t write "the response should not say the Great Wall is in Japan" — that\'s a criterion tailored to one bad response that\'s unlikely to recur. Instead, write the positive version: "The response should identify the Great Wall of China as being located in China." That criterion catches the original error while also being useful against any future response that gets the location wrong in a different way.'
+            },
+            {
+              q: 'Some prompts have a narrow, objectively correct answer — like a math problem or a factual lookup. Does the incidental vs. generalizable distinction still apply?',
+              a: 'For prompts with clear-cut correct answers, your criteria will naturally be more specific and objective — and that\'s fine. If addressing all the explicit requirements of the prompt fully describes what a correct response looks like, then those objective criteria may be all you need. The incidental vs. generalizable distinction is most relevant for open-ended or subjective prompts where many valid responses are possible. Don\'t avoid specificity when the prompt calls for it; the point is to avoid false specificity on prompts where it isn\'t warranted.'
+            }
+          ]
+        },
+        {
+          id: 'faq-writing-criteria',
+          section: 'Section 3 · Writing Criteria: Atomicity, Self-Containedness & Judgment',
+          items: [
+            {
+              q: 'The instructions say not to over-split criteria for things models rarely fail at. How do I know what models are likely to fail at?',
+              a: 'Use your experience. You\'ve worked with models of varying quality and seen the kinds of mistakes they make. If you\'ve never seen a model fail to generate a table when explicitly asked for one, it\'s probably fine to combine "create a table with columns for X, Y, and Z" into a single criterion. If you\'ve seen models struggle with a particular type of request — misinterpreting conditional logic, losing track of constraints in a long prompt, making errors on math problems — that\'s a signal to break those aspects into more granular criteria. When in doubt, lean toward splitting; it\'s easier to consolidate criteria that turn out to be unnecessary than to add ones that were missing.'
+            },
+            {
+              q: 'For multi-turn conversations, how much of the conversation history do I need to include in a criterion to make it self-contained?',
+              a: 'Include whatever the autorater would need to grade the criterion accurately. The autorater cannot see the prompt, the content text, or the conversation history — your criterion is the only thing it has. That doesn\'t mean you need to paste in the entire conversation; it means you need to include the specific pieces of context that the criterion depends on. If your criterion is "the response should correctly recall the user\'s preferred name from the earlier turn," you need to state what that name is. If the criterion depends on something the user said three turns ago, paraphrase or quote the relevant part. Think about what you would need in order to evaluate the response yourself if you had no access to anything except the criterion text and the response.'
+            },
+            {
+              q: 'If the prompt includes a long piece of content (like an article to summarize), how do I make a criterion self-contained without just copying the entire text?',
+              a: 'This requires judgment, and it\'s one of the harder parts of writing good criteria. The key question is the same: what would the autorater need to see in order to grade this? If the prompt asks for a summary, don\'t paste the full article — the autorater would then have to decide for itself what the key points are, which defeats the purpose. Instead, identify the key points yourself and include them in the criterion as an answer key: "The response should summarize the article\'s key points, which include [point 1], [point 2], and [point 3]." If the prompt asks for a near-verbatim rewrite with small changes, you may need to provide the full expected text. Use your judgment about how much context is necessary for accurate grading, and err on the side of being explicit.'
+            }
+          ]
+        },
+        {
+          id: 'faq-category-taxonomy',
+          section: 'Section 4 · Category Taxonomy',
+          items: [
+            {
+              q: 'A criterion seems like it could fit into two categories. How do I decide?',
+              a: 'Go with whichever category feels like the best fit. Don\'t overthink it — if a criterion is clearly more about one dimension than another, choose that one. The taxonomy documentation includes some explicit exceptions to help with common borderline cases (e.g., "summarize in one line" is Instruction Following, not Conciseness), so check whether your case is addressed there. If you genuinely feel a criterion doesn\'t fit any defined category, you can select "Other" and use the explanation box to describe why you chose it. But try the defined categories first; "Other" should be a last resort.'
+            }
+          ]
+        },
+        {
+          id: 'faq-llm-evaluation',
+          section: 'Section 5 · LLM Evaluation Tool',
+          items: [
+            {
+              q: 'After I rate each criterion, I generate an LLM evaluation. What should I do with its feedback?',
+              a: 'The LLM evaluation tool reviews your rubric against the principles in the instructions — atomicity, self-containedness, generalizability, and so on. It may flag issues you missed or suggest improvements. That said, the tool is in beta. Treat its feedback as a second opinion, not a directive. If it raises a point that makes you rethink a criterion, revise accordingly. If you disagree with its suggestion and have a clear reason why, you can disregard it. You always have the final say.'
+            }
+          ]
+        },
+        {
+          id: 'faq-scoring',
+          section: 'Section 6 · Scoring',
+          items: [
+            {
+              q: 'A criterion is conditional (e.g., "If the response mentions a cat, it should include the word \'purr\'"). What if I\'m unsure whether the condition is met — like, does "kitten" count as mentioning a cat?',
+              a: 'Use your judgment. If the connection is close enough that a reasonable person would consider the condition met, treat it as met and score accordingly. If it\'s a genuine stretch, you might consider it a borderline case and score it as Minor Issues rather than No Issues or Major Issues. The No Issues / Minor Issues / Major Issues scale gives you room to reflect the degree of the issue rather than forcing a binary call.'
+            },
+            {
+              q: 'Can I use "could" in a criterion itself, or only in elaborations?',
+              a: '"Could" should only appear in elaborations — the "For example" portion of a criterion or similar follow-on language. The criterion itself should always use "should" (or "should not"). The word "should" establishes the requirement; "could" in the elaboration signals that the examples are illustrative, not exhaustive, and the response has flexibility in how it meets the requirement.'
+            }
+          ]
+        }
+      ];
+ 
   
     // ============================================
     // STATE
