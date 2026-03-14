@@ -80,10 +80,14 @@
         },
         {
           id: 'faq-llm-evaluation',
-          section: 'Section 5 · LLM Evaluation Tool',
+          section: 'Section 5 · LLM Evaluation Tools',
           items: [
             {
-              q: 'After I rate each criterion, I generate an LLM evaluation. What should I do with its feedback?',
+                q: 'Why do I need to have the LLM check the score for each criterion?',
+                a: 'The purpose of this model is to stand in as an autorater. Even though it is not able to hear the responses, it will give you a good idea of how an LLM judge will interpret your criterion. This is an especially powerful tool to use when increasing the specificity and reducing ambiguity of your criterion. If the model interprets your criterion as you expect, this is a good sign. However, the tool will not be as valuable for audio generation criteria, and it has been instructed to produce a caveat with its scoring output.'
+            },
+            {
+              q: 'After I complete the rubric, I generate an LLM evaluation. What should I do with its feedback?',
               a: 'The LLM evaluation tool reviews your rubric against the principles in the instructions — atomicity, self-containedness, generalizability, and so on. It may flag issues you missed or suggest improvements. That said, the tool is in beta. Treat its feedback as a second opinion, not a directive. If it raises a point that makes you rethink a criterion, revise accordingly. If you disagree with its suggestion and have a clear reason why, you can disregard it. You always have the final say.'
             }
           ]
